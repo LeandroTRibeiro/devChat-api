@@ -43,7 +43,11 @@ export const register = async (req: Request, res: Response) => {
 
                 const avatar = fileName;
 
-                await sharp(req.file.path).toFormat('png').toFile(`./public/media/${fileName}`);
+                try {
+                    await sharp(req.file.path).toFormat('png').toFile(`./public/media/${fileName}`);
+                } catch(error) {
+                    console.log('ta dando erro aqui');
+                }
         
                 await unlink(req.file.path);
 
