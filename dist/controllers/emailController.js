@@ -311,8 +311,7 @@ const ConfirmRegister = (req, res) => __awaiter(void 0, void 0, void 0, function
             }
         }
         else {
-            res.status(403);
-            res.json({ error: 'Este E-mail não é valido' });
+            res.json({ error: 'Este E-mail não é um E-mail válido' });
         }
     }
     else {
