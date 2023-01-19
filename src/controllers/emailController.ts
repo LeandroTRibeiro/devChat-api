@@ -336,8 +336,7 @@ export const ConfirmRegister = async (req: Request, res: Response) => {
 
         } else {
 
-            res.status(403);
-            res.json({ error: 'Este E-mail não é valido' });
+            res.json({ error: 'Este E-mail não é um E-mail válido' });
         }
 
     } else {

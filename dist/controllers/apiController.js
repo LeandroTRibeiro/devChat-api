@@ -42,7 +42,13 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const User_1 = __importDefault(require("../models/User"));
 const sharp_1 = __importDefault(require("sharp"));
 const promises_1 = require("fs/promises");
+const cloudinary_1 = __importDefault(require("cloudinary"));
 dotenv_1.default.config();
+cloudinary_1.default.v2.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
+});
 const ping = (req, res) => {
     res.json({ pong: true });
 };
@@ -63,13 +69,19 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 yield (0, sharp_1.default)(req.file.path).toFormat('png').toFile(`./public/media/${fileName}`);
                 yield (0, promises_1.unlink)(req.file.path);
                 const token = jsonwebtoken_1.default.sign({ email, password }, process.env.JWT_SECRET_KEY);
-                const newUser = yield userService.createUser(firstName, lastName, email, token, avatar);
-                if (newUser instanceof Error) {
-                    res.json({ error: newUser.message });
+                try {
+                    const cloud = yield cloudinary_1.default.v2.uploader.upload(`https://devchat.onrender.com/media/${fileName}`, { public_id: req.file.filename });
+                    const newUser = yield userService.createUser(firstName, lastName, email, token, cloud.url);
+                    if (newUser instanceof Error) {
+                        res.json({ error: newUser.message });
+                    }
+                    else {
+                        res.status(201);
+                        res.json({ newUser });
+                    }
                 }
-                else {
-                    res.status(201);
-                    res.json({ newUser });
+                catch (error) {
+                    console.log(error);
                 }
             }
             else {
@@ -130,7 +142,7 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const decode = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET_KEY);
         const user = yield userService.findUser(decode.email);
         if (user) {
-            res.json({ userName: `${user.name.firstName} ${user.name.lastName}`, avatar: `https://devchat.onrender.com/media/${user.avatar}` });
+            res.json({ userName: `${user.name.firstName} ${user.name.lastName}`, avatar: user.avatar });
         }
         else {
             res.json({ error: 'Usuário não encontrado' });

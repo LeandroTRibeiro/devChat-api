@@ -3,11 +3,18 @@ import * as userService from "../services/userService";
 import JWT from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import User, { UserType } from '../models/User';
-import { DecodeType } from '../types/types';
+import { CloudType, DecodeType } from '../types/types';
 import sharp from "sharp";
 import { unlink } from 'fs/promises';
+import cloudinary from 'cloudinary';
 
 dotenv.config();
+
+cloudinary.v2.config({
+    cloud_name: process.env.CLOUD_NAME as string,
+    api_key: process.env.API_KEY as string,
+    api_secret: process.env.API_SECRET as string
+});
 
 export const ping = (req: Request, res: Response) => {
     res.json({ pong: true })
@@ -45,18 +52,27 @@ export const register = async (req: Request, res: Response) => {
                     process.env.JWT_SECRET_KEY as string
                 );
 
-                const newUser = await userService.createUser(firstName, lastName, email, token, avatar);
+                try {
 
-                if ( newUser instanceof Error ) {
+                    const cloud: CloudType = await cloudinary.v2.uploader.upload(`https://devchat.onrender.com/media/${fileName}`, {public_id: req.file.filename});
 
-                    res.json({ error: newUser.message });
+                    const newUser = await userService.createUser(firstName, lastName, email, token, cloud.url);
+
+                    if ( newUser instanceof Error ) {
     
-                } else {
-    
-                    res.status(201);
-                    res.json({ newUser });
-    
+                        res.json({ error: newUser.message });
+        
+                    } else {
+        
+                        res.status(201);
+                        res.json({ newUser });
+        
+                    }
+                    
+                } catch(error) {
+                    console.log(error);
                 }
+
 
             } else {
                 res.status(400);
@@ -146,7 +162,7 @@ export const getUser = async (req: Request, res: Response) => {
         const user = await userService.findUser(decode.email);
 
         if(user) {
-            res.json({ userName: `${user.name.firstName} ${user.name.lastName}`, avatar: `https://devchat.onrender.com/media/${user.avatar}` });
+            res.json({ userName: `${user.name.firstName} ${user.name.lastName}`, avatar: user.avatar });
         } else {
             res.json({ error: 'Usuário não encontrado' });
         }
