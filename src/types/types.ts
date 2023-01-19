@@ -25,3 +25,7 @@ export type RingColorType = {
     color: string,
     user: UserType
 }
+
+export type CloudType = {
+    url: string
+}

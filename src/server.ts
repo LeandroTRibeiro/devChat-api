@@ -62,7 +62,9 @@ io.on('connection', (socket) => {
     socket.on('join-request', (user: UserTypeFront) => {
 
         (socket as any).username = user.userName;
+
         connectedUsers.push(user);
+ 
         socket.emit('user-ok', connectedUsers);
         socket.broadcast.emit('list-update', {
             joined: user,
