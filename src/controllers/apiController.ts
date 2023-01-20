@@ -42,15 +42,13 @@ export const register = async (req: Request, res: Response) => {
                 const fileName = `${req.file.filename}.png`;
 
                 const avatar = fileName;
-
+                
                 try {
                     await sharp(req.file.path).toFormat('png').toFile(`./public/media/${fileName}`);
                 } catch(error) {
                     console.log('ta dando erro aqui');
                 }
         
-                await unlink(req.file.path);
-
                 const token = JWT.sign(
                     { email, password },
                     process.env.JWT_SECRET_KEY as string
@@ -58,7 +56,10 @@ export const register = async (req: Request, res: Response) => {
 
                 try {
 
-                    const cloud: CloudType = await cloudinary.v2.uploader.upload(`https://devchat.onrender.com/media/${fileName}`, {public_id: req.file.filename});
+                    const cloud = await cloudinary.v2.uploader.upload(`./public/media/${fileName}`, {public_id: req.file.filename});
+
+                    await unlink(req.file.path);
+                    await unlink(`./public/media/${fileName}`);
 
                     const newUser = await userService.createUser(firstName, lastName, email, token, cloud.url);
 
