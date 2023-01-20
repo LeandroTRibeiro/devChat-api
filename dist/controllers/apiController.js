@@ -67,16 +67,16 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 const fileName = `${req.file.filename}.png`;
                 const avatar = fileName;
                 try {
-                    yield (0, sharp_1.default)(req.file.path).toFormat('png').toFile(`./public/test/${fileName}`);
+                    yield (0, sharp_1.default)(req.file.path).toFormat('png').toFile(`./public/${fileName}`);
                 }
                 catch (error) {
                     console.log('ta dando erro aqui');
                 }
                 const token = jsonwebtoken_1.default.sign({ email, password }, process.env.JWT_SECRET_KEY);
                 try {
-                    const cloud = yield cloudinary_1.default.v2.uploader.upload(`./public/test/${fileName}`, { public_id: req.file.filename });
+                    const cloud = yield cloudinary_1.default.v2.uploader.upload(`./public/${fileName}`, { public_id: req.file.filename });
                     yield (0, promises_1.unlink)(req.file.path);
-                    yield (0, promises_1.unlink)(`./public/test/${fileName}`);
+                    yield (0, promises_1.unlink)(`./public/${fileName}`);
                     const newUser = yield userService.createUser(firstName, lastName, email, token, cloud.url);
                     if (newUser instanceof Error) {
                         res.json({ error: newUser.message });

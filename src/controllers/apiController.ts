@@ -44,7 +44,7 @@ export const register = async (req: Request, res: Response) => {
                 const avatar = fileName;
                 
                 try {
-                    await sharp(req.file.path).toFormat('png').toFile(`./public/test/${fileName}`);
+                    await sharp(req.file.path).toFormat('png').toFile(`./public/${fileName}`);
                 } catch(error) {
                     console.log('ta dando erro aqui');
                 }
@@ -56,10 +56,10 @@ export const register = async (req: Request, res: Response) => {
 
                 try {
 
-                    const cloud = await cloudinary.v2.uploader.upload(`./public/test/${fileName}`, {public_id: req.file.filename});
+                    const cloud = await cloudinary.v2.uploader.upload(`./public/${fileName}`, {public_id: req.file.filename});
 
                     await unlink(req.file.path);
-                    await unlink(`./public/test/${fileName}`);
+                    await unlink(`./public/${fileName}`);
 
                     const newUser = await userService.createUser(firstName, lastName, email, token, cloud.url);
 
