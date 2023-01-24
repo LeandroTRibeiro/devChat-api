@@ -52,7 +52,7 @@ Este projeto é dividio em duas partes:
 1. Backend 
 2. Frontend <a href="https://github.com/LeandroTRibeiro/devChat-app" target="_blank">Veja o repositório aqui!</a>
 
-💡 O Backend precisa de um arquivo ".env" com a chave "MONGO_URL" de seu banco de dados <a href="https://www.mongodb.com/">MongoDB</a>, da chave "JWT_SECRET_KEY" para criação do token de senha de seus usuários, da chave "SENDGRID_API_KEY" de sua conta no <a href="https://sendgrid.com/">SendGrid</a>,das chaves "JWT_SECRET_RECOVER" e "JWT_SECRET_CONFIRM" para criação do token de recupeção de senha, e das chaves "CLOUD_NAME", "API_KEY" e "API_SECRET" de sua conta <a href="https://cloudinary.com/">Cloudinary</a> para funcionar.
+💡 O Backend precisa de um arquivo ".env" com a chave "MONGO_URL" de seu banco de dados <a href="https://www.mongodb.com/">MongoDB</a>, da chave "JWT_SECRET_KEY" para criação do token de senha de seus usuários, da chave "SENDGRID_API_KEY" de sua conta no <a href="https://sendgrid.com/">SendGrid</a>, das chaves "JWT_SECRET_RECOVER" e "JWT_SECRET_CONFIRM" para criação do token de recupeção de senha e confirmação de ativação da conta, e das chaves "CLOUD_NAME", "API_KEY" e "API_SECRET" de sua conta <a href="https://cloudinary.com/">Cloudinary</a> para funcionar.
 
 🧭 Rodando a aplicação web (Backend)
 
