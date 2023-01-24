@@ -8,6 +8,7 @@
  <a href="#implantacao">Implantação</a> •
  <a href="#funcionalidades">Funcionalidades</a> • 
  <a href="#about">Api endpoints</a> • 
+ <a href="#sockets">Sockets</a> • 
  <a href="#licenca">Licença</a> • 
  <a href="#autor">Autor</a>
 </p>
@@ -109,7 +110,7 @@ A Api recebe informações pelo query params e por JSON.
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxhbGFAbGFsYS5jb20iLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTY3NDU2Njc1NX0.LfjrebklZvH_4GV5eK4Fjs1eNJMxT8O9t6UULRC9mwM"
 }
 ```
-___
+
 
 Response:
 
@@ -133,7 +134,7 @@ ___
     "password": "123456"
 }
 ```
-___
+
 
 Response:
 
@@ -148,6 +149,7 @@ ___
 
 <h3 id="register">POST - /register</h3>
 💡 Mandar informações de cadastro por form-data.
+<br>Request:
 
 | Method | type | KEY | Value | Exemplo |
 | -------:| ----:| ---:| -----:| ------:|
@@ -186,7 +188,7 @@ ___
     "email":"novo@usuario.com"
 }
 ```
-___
+
 
 <br>Response:
 
@@ -258,7 +260,7 @@ ___
 }
 
 ```
-___
+
 
 <br>Response:
 
@@ -269,7 +271,143 @@ ___
 
 ```
 ___
-	
+
+<h2 id="sockets">🔊 Sockets</h2>
+<br>
+💡 link para conexão - https://devchat.onrender.com
+<br>
+
+| listeners | data received |
+| ---------:| -------------:|
+| "connection" | null |
+| "join-request" | <a href="#user">user</a> |
+| "disconnect" | null |
+| "send-msg"   | <a href="#msg">msg</a> |
+| "status-color" | <a href="#color">statusColor</a> |
+
+| emiters | data sended |
+| -------:| -----------:|
+| "user-ok" | <a href="#connectedUsers">connectedUsers</a> |
+| "show-msg"| <a href="#msg">msg</a> |
+
+| broadcast emiters | data sended |
+| -----------------:| -----------:|
+| "list-update"     | <a href="joined">joined</a> or <a href="left">left</a> |
+| "show-msg"| <a href="#msg">msg</a> |
+| "update-status"   | <a href="#color">statusColor</a>, <a href="#connectedUsers">connectedUsers</a> |
+
+<h3 id="user">user</h3>
+Type:
+
+```
+type userType = {
+   userName: string,
+   avatar: string,
+   statusColor: string
+};
+```
+
+Exemplo:
+
+```
+user: userType = {
+   userName: "Novo Usuário",
+   avatar: "http://res.cloudinary.com/dvxrv2coa/image/upload/v1674566757/06fc55f55b5b4a88145a749b7aacefe6.png",
+   statusColor: "ring-green-500"
+};
+```
+___
+
+<h3 id="connectedUsers">connectedUsers</h3>
+Exemplo: 
+
+```
+connectedUsers: userType[] = [];
+```
+___
+
+<h3 id="joined">joined</h3>
+Type:
+
+```
+type joinedType = {
+   joined: userType,
+   list: userType[]
+};
+```
+
+Exemplo:
+
+```
+joined: joinedType = {
+   joined: user,
+   list: connectedUsers
+};
+```
+___
+
+<h3 id="left">left</h3>
+Type:
+
+```
+type leftType = {
+   left: userType,
+   list: userType[]
+};
+```
+
+Exemplo: 
+
+```
+left: leftType = {
+   left: user,
+   list connectedUsers
+};
+```
+___
+
+<h3 id="msg">msg</h3>
+Type:
+
+```
+type msgType = {
+   input: string,
+   user: userType
+};
+```
+
+Exemplo:
+
+```
+msg: msgType = {
+   input: "primeira mensagem",
+   user: user
+};
+```
+___
+
+<h3 id="color">statusColor</h3>
+Type:
+
+```
+type statusColorType = {
+   color: string,
+   user: userType
+};
+```
+
+Exemplo: 
+
+```
+statusColor: statusColorType = {
+   color: "ring-green-500",
+   user: user
+};
+```
+
+
+___
+
 <h2 id="licenca">📝 Licença</h2>
 
 Este projeto está sobre a licença MIT. 
