@@ -7,16 +7,6 @@ import { RecoverType } from '../types/types';
 
 dotenv.config();
 
-export const Test = (req: Request, res: Response) => {
-
-    const token = req.body.token;
-
-    const decode = JWT.verify(token, process.env.JWT_SECRET_KEY as string);
-
-    res.json({ decode });
-
-};
-
 export const recoverPassword = async (req: Request, res: Response) => {
 
     const { email } = req.body;
@@ -33,7 +23,7 @@ export const recoverPassword = async (req: Request, res: Response) => {
                 { expiresIn: '1h' }
             );
 
-            let link: string = `https://superlative-speculoos-6a0b7b.netlify.app/recoverpasswordmail?token=${token}`;
+            let link: string = `https://devlivechat.netlify.app/recoverpasswordmail?token=${token}`;
 
             let htmlTxt: string = `
             <html lang='pt-BR'>
@@ -222,7 +212,7 @@ export const ConfirmRegister = async (req: Request, res: Response) => {
                 { expiresIn: '1h' }
             );
 
-            let link: string = `https://superlative-speculoos-6a0b7b.netlify.app/authenticateacount?token=${token}`;
+            let link: string = `https://devlivechat.netlify.app/authenticateacount?token=${token}`;
 
             let htmlTxt: string = `
             <html lang='pt-BR'>

@@ -17,9 +17,6 @@ const upload = multer({
 const router = Router();
 
 router.get('/ping', apiController.ping);
-router.get('/teste', apiController.teste);
-router.post('/test', emailController.Test);
-router.post('/upload',upload.single('avatar'), apiController.uploadfile);
 
 router.post('/register',upload.single('avatar'), apiController.register);
 router.post('/login', apiController.login);

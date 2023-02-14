@@ -35,25 +35,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthenticteAcount = exports.ConfirmRegister = exports.RecoveringPassword = exports.recoverPassword = exports.Test = void 0;
+exports.AuthenticteAcount = exports.ConfirmRegister = exports.RecoveringPassword = exports.recoverPassword = void 0;
 const mail_1 = __importDefault(require("@sendgrid/mail"));
 const userService = __importStar(require("../services/userService"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 dotenv_1.default.config();
-const Test = (req, res) => {
-    const token = req.body.token;
-    const decode = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET_KEY);
-    res.json({ decode });
-};
-exports.Test = Test;
 const recoverPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.body;
     if (email) {
         const user = yield userService.findUser(email);
         if (user) {
             const token = jsonwebtoken_1.default.sign({ email: user.email, token: process.env.JWT_SECRET_RECOVER }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
-            let link = `https://superlative-speculoos-6a0b7b.netlify.app/recoverpasswordmail?token=${token}`;
+            let link = `https://devlivechat.netlify.app/recoverpasswordmail?token=${token}`;
             let htmlTxt = `
             <html lang='pt-BR'>
             <head>
@@ -206,7 +200,7 @@ const ConfirmRegister = (req, res) => __awaiter(void 0, void 0, void 0, function
         const hasUser = yield userService.findUser(email);
         if (validate.test(email) && hasUser) {
             const token = jsonwebtoken_1.default.sign({ email: email, token: process.env.JWT_SECRET_CONFIRM }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
-            let link = `https://superlative-speculoos-6a0b7b.netlify.app/authenticateacount?token=${token}`;
+            let link = `https://devlivechat.netlify.app/authenticateacount?token=${token}`;
             let htmlTxt = `
             <html lang='pt-BR'>
             <head>
