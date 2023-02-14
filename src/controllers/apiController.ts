@@ -20,13 +20,6 @@ export const ping = (req: Request, res: Response) => {
     res.json({ pong: true })
 };
 
-export const teste = async (req: Request, res: Response) => {
-
-    const teste = await User.find({});
-
-    res.json({teste});
-}
-
 export const register = async (req: Request, res: Response) => {
 
     const {firstName, lastName, email, password } = req.body;
@@ -130,28 +123,6 @@ export const login = async (req: Request, res: Response) => {
         res.status(401);
         res.json({ error: 'Usuário inexistente' });
 
-    }
-
-};
-
-export const uploadfile = async (req: Request, res:Response) => {
-
-    const { user } = req.body;
-
-    if ( req.file ) {
-
-        const fileName = req.file.filename;
-
-        await sharp(req.file.path).toFormat('png').toFile(`./public/media/${fileName}.png`);
-
-        await unlink(req.file.path);
-
-        res.json({ imagem: `${fileName}.png` });
-
-    } else {
-
-        res.status(400);
-        res.json({ error: 'Arquivo Inválido' });
     }
 
 };
