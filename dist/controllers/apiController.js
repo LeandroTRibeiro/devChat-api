@@ -35,11 +35,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUser = exports.uploadfile = exports.login = exports.register = exports.teste = exports.ping = void 0;
+exports.getUser = exports.login = exports.register = exports.ping = void 0;
 const userService = __importStar(require("../services/userService"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const User_1 = __importDefault(require("../models/User"));
 const sharp_1 = __importDefault(require("sharp"));
 const promises_1 = require("fs/promises");
 const cloudinary_1 = __importDefault(require("cloudinary"));
@@ -53,11 +52,6 @@ const ping = (req, res) => {
     res.json({ pong: true });
 };
 exports.ping = ping;
-const teste = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const teste = yield User_1.default.find({});
-    res.json({ teste });
-});
-exports.teste = teste;
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { firstName, lastName, email, password } = req.body;
     const newUser = yield userService.findUser(email);
@@ -128,20 +122,6 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.login = login;
-const uploadfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { user } = req.body;
-    if (req.file) {
-        const fileName = req.file.filename;
-        yield (0, sharp_1.default)(req.file.path).toFormat('png').toFile(`./public/media/${fileName}.png`);
-        yield (0, promises_1.unlink)(req.file.path);
-        res.json({ imagem: `${fileName}.png` });
-    }
-    else {
-        res.status(400);
-        res.json({ error: 'Arquivo Inválido' });
-    }
-});
-exports.uploadfile = uploadfile;
 const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { token } = req.body;
     if (token) {

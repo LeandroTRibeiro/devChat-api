@@ -40,9 +40,6 @@ const upload = (0, multer_1.default)({
 });
 const router = (0, express_1.Router)();
 router.get('/ping', apiController.ping);
-router.get('/teste', apiController.teste);
-router.post('/test', emailController.Test);
-router.post('/upload', upload.single('avatar'), apiController.uploadfile);
 router.post('/register', upload.single('avatar'), apiController.register);
 router.post('/login', apiController.login);
 router.post('/recover', emailController.recoverPassword);
