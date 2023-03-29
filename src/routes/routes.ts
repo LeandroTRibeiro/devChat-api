@@ -10,7 +10,7 @@ const upload = multer({
 
         cb(null, allowed.includes( file.mimetype ));
     },
-    limits: { fileSize: 10485760 },
+    limits: { fileSize: 16565094 },
 
 });
 
