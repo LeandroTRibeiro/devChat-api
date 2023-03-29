@@ -61,10 +61,10 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 const fileName = `${req.file.filename}.png`;
                 const avatar = fileName;
                 try {
-                    yield (0, sharp_1.default)(req.file.path).toFormat('png').toFile(`./public/${fileName}`);
+                    yield (0, sharp_1.default)(req.file.path).resize(200).toFormat('png').toFile(`./public/${fileName}`);
                 }
                 catch (error) {
-                    console.log('ta dando erro aqui');
+                    console.log(error);
                 }
                 const token = jsonwebtoken_1.default.sign({ email, password }, process.env.JWT_SECRET_KEY);
                 try {

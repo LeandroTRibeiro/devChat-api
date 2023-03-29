@@ -37,9 +37,9 @@ export const register = async (req: Request, res: Response) => {
                 const avatar = fileName;
                 
                 try {
-                    await sharp(req.file.path).toFormat('png').toFile(`./public/${fileName}`);
+                    await sharp(req.file.path).resize(200).toFormat('png').toFile(`./public/${fileName}`);
                 } catch(error) {
-                    console.log('ta dando erro aqui');
+                    console.log(error);
                 }
         
                 const token = JWT.sign(
