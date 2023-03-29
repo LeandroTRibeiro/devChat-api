@@ -36,7 +36,7 @@ const upload = (0, multer_1.default)({
         const allowed = ['image/jpg', 'image/jpeg', 'image/png'];
         cb(null, allowed.includes(file.mimetype));
     },
-    limits: { fileSize: 10485760 },
+    limits: { fileSize: 16565094 },
 });
 const router = (0, express_1.Router)();
 router.get('/ping', apiController.ping);
