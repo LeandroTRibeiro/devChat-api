@@ -1,12 +1,15 @@
 import { Request, Response } from "express";
+
 import * as userService from "../services/userService";
+
 import JWT from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import User, { UserType } from '../models/User';
-import { CloudType, DecodeType } from '../types/types';
+
+import cloudinary from 'cloudinary';
 import sharp from "sharp";
 import { unlink } from 'fs/promises';
-import cloudinary from 'cloudinary';
+
+import { DecodeType } from '../types/types';
 
 dotenv.config();
 

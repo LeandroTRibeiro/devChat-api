@@ -36,8 +36,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mongoConnect = void 0;
-const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importStar(require("mongoose"));
+const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 mongoose_1.default.set('strictQuery', false);
 const mongoConnect = () => __awaiter(void 0, void 0, void 0, function* () {

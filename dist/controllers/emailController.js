@@ -37,9 +37,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthenticteAcount = exports.ConfirmRegister = exports.RecoveringPassword = exports.recoverPassword = void 0;
 const mail_1 = __importDefault(require("@sendgrid/mail"));
-const userService = __importStar(require("../services/userService"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const userService = __importStar(require("../services/userService"));
 dotenv_1.default.config();
 const recoverPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.body;
