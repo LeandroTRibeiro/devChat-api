@@ -39,9 +39,9 @@ exports.getUser = exports.login = exports.register = exports.ping = void 0;
 const userService = __importStar(require("../services/userService"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const cloudinary_1 = __importDefault(require("cloudinary"));
 const sharp_1 = __importDefault(require("sharp"));
 const promises_1 = require("fs/promises");
-const cloudinary_1 = __importDefault(require("cloudinary"));
 dotenv_1.default.config();
 cloudinary_1.default.v2.config({
     cloud_name: process.env.CLOUD_NAME,

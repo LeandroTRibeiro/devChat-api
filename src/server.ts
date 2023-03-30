@@ -1,13 +1,18 @@
 import express, { Request, Response, ErrorRequestHandler } from 'express';
+import { mongoConnect } from './database/mongo';
+
+import { Server } from 'socket.io';
+
+import cors from 'cors';
+import path from 'path';
 import http from 'http';
 import dotenv from 'dotenv';
-import { Server } from 'socket.io';
-import router from './routes/routes';
 import bodyParser from 'body-parser';
-import { mongoConnect } from './database/mongo';
-import cors from 'cors';
+
+import router from './routes/routes';
+
 import { MulterError } from 'multer';
-import path from 'path';
+
 import { RingColorType, SendMsgType, UserTypeFront } from './types/types';
 
 dotenv.config();

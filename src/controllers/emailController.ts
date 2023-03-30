@@ -1,8 +1,11 @@
-import sgMail from '@sendgrid/mail';
 import { Request, Response } from 'express';
-import * as userService from '../services/userService';
+
+import sgMail from '@sendgrid/mail';
 import dotenv from 'dotenv';
-import JWT, { TokenExpiredError } from 'jsonwebtoken';
+import JWT from 'jsonwebtoken';
+
+import * as userService from '../services/userService';
+
 import { RecoverType } from '../types/types';
 
 dotenv.config();
