@@ -422,6 +422,6 @@ Este projeto está sobre a licença MIT.
  <br />
  
 [![GitHub Badge](https://img.shields.io/badge/-LeandroTRibeiro-black?style=flat-square&logo=GitHub&logoColor=white&link=https://github.com/LeandroTRibeiro)](https://github.com/LeandroTRibeiro)
-[![Linkedin Badge](https://img.shields.io/badge/-LeandroRibeiro-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/leandro-ribeiro-2a8a8b24b/)](https://www.linkedin.com/in/leandro-ribeiro-2a8a8b24b/) 
+Objetivo principal deste projeto foi a criação de um Backend e Frontend que tivésse toda a parte de cadastro completa, desde autenticações e autorizações e envio de E-mails, e que utilizasse sockets para envio e recebimento de mensagens.
 [![Gmail Badge](https://img.shields.io/badge/-leandrothiago_ribeiro@hotmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:leandrothiago_ribeiro@hotmail.com)](mailto:leandrothiago_ribeiro@hotmail.com)
 
